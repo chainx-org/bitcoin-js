@@ -1,0 +1,25 @@
+{
+  "name": "bitcoin-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chainx-org/bitcoin-js.git"
+  },
+  "keywords": [
+    "bitcoin-js"
+  ],
+  "author": "chainpool",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chainx-org/bitcoin-js/issues"
+  },
+  "homepage": "https://github.com/chainx-org/bitcoin-js#readme",
+  "dependencies": {
+    "bitcoinjs-lib": "^4.0.2"
+  }
+}
