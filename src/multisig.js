@@ -11,7 +11,7 @@ function generateKey(networkInput) {
     let keyPair = bitcoin.ECPair.fromWIF(wif, NETWORK)
     return {
         privkey: wif,
-        pubkey: keyPair.publicKey.toString('hex')
+        pubkey: keyPair.publicKey
     }
 }
 
@@ -35,12 +35,12 @@ function multisigRandom(m,n,networkInput){
 	
     redeem = bitcoin.payments.p2ms({ pubkeys, m })
     const {address} = bitcoin.payments.p2sh({redeem: redeem})
-	let wifListToString = wifList.join()
-	return{
-		addr: address,
-		redeemScript: redeem.output.toString('hex'),
-		privateKeys: wifListToString
-	}
+    let wifListToString = wifList.join()
+    return{
+        addr: address,
+        redeemScript: redeem.output.toString('hex'),
+        privateKeys: wifListToString
+    }
 }
 
 function multisig(pubKey1, pubKey2, pubKey3, networkInput){
@@ -51,12 +51,12 @@ function multisig(pubKey1, pubKey2, pubKey3, networkInput){
          pubKey3
     ].map(function (hex) { return Buffer.from(hex, 'hex') })
 
-	redeem = bitcoin.payments.p2ms({ pubkeys, m:2 }) // 2 of 3
+    redeem = bitcoin.payments.p2ms({ pubkeys, m:2 }) // 2 of 3
     const {address} = bitcoin.payments.p2sh({redeem: redeem})
-	return{
-		addr: address,
-		redeemScript: redeem.output.toString('hex')
-	}
+    return{
+        addr: address,
+        redeemScript: redeem.output.toString('hex')
+    }
 }
 
 function buildTransaction(input, output) {
