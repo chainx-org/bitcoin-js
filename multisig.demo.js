@@ -1,7 +1,7 @@
 const multisig = require('.').multisig
 const bitcoin = require("bitcoinjs-lib")
 
-let input = { txhash: Buffer.from("8fa889c7b1411bcb8a565ad588ef5313f23b9661521dac3cc183cfeb870ef1e1", 'hex').reverse(), vout: 0 }
+let input = { txhash: Buffer.from("4443c02cdb9ef603a7470dcd722d7c6f5d9197c8c5114e4161abbbc39e684003", 'hex').reverse(), vout: 0 }
 let out = { address: Buffer.from("76a914cfd6b18ff3c883d0fb26244a695e89279e673e5a88ac"), value: 100 }
 let tx = multisig.buildTransaction(input, out)
 console.log(tx)
@@ -20,9 +20,11 @@ console.log(o)
 console.log("out:" + o.redeemScript.output.toString('hex'))
 let redeem = o.redeemScript.output
 console.log("tx:" + tx.toHex())
-let tx1 = multisig.signTransaction(tx, 0, keypair1, 'testnet', redeem)
+let tx1 = multisig.multiSignTransaction(tx, 0, keypair1, 'testnet', redeem)
 console.log(tx1)
+console.log(bitcoin.script.toASM(tx1.ins[0].script))
 console.log("tx1:" + tx1.toHex())
-let tx2 = multisig.signTransaction(tx1, 0, keypair2, 'testnet', redeem)
+let tx2 = multisig.multiSignTransaction(tx1, 0, keypair2, 'testnet', redeem)
 console.log(tx2)
+console.log(bitcoin.script.toASM(tx2.ins[0].script))
 console.log("tx2:" + tx2.toHex())

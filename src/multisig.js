@@ -74,10 +74,20 @@ function signTransaction(tx, vin, keyPair, networkInput, redeemScript, hashType)
     return tx1
 }
 
+function multiSignTransaction(tx, vin, keyPair, networkInput, redeemScript, hashType) {
+    let NETWORK = networkInput === "testnet" ? bitcoin.networks.testnet : bitcoin.networks.bitcoin
+    let txb = TransactionBuilder.fromTransaction(tx, NETWORK)
+    txb.sign(vin, keyPair, redeemScript, hashType)
+    let tx1 = txb.build()
+    return tx1
+}
+
+
 module.exports = {
     multisigRandom,
     multisig,
     generateKey,
     buildTransaction,
-    signTransaction
+    signTransaction,
+    multiSignTransaction    
 }
