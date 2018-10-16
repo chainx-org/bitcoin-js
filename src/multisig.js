@@ -33,8 +33,8 @@ function multisigRandom(m,n,networkInput){
 	
     let pubkeys = pubList.map(function (hex) { return Buffer.from(hex, 'hex') })
 	
-    redeem = bitcoin.payments.p2ms({ pubkeys, m })
-    const {address} = bitcoin.payments.p2sh({redeem: redeem})
+    redeem = bitcoin.payments.p2ms({ pubkeys, m , network: NETWORK})
+    const {address} = bitcoin.payments.p2sh({redeem: redeem, network: NETWORK})
     let wifListToString = wifList.join()
     return{
         addr: address,
@@ -51,8 +51,8 @@ function multisig(pubKey1, pubKey2, pubKey3, networkInput){
          pubKey3
     ].map(function (hex) { return Buffer.from(hex, 'hex') })
 
-    redeem = bitcoin.payments.p2ms({ pubkeys, m:2 }) // 2 of 3
-    const {address} = bitcoin.payments.p2sh({redeem: redeem})
+    redeem = bitcoin.payments.p2ms({ pubkeys, m:2, network: NETWORK }) // 2 of 3
+    const {address} = bitcoin.payments.p2sh({redeem: redeem, network: NETWORK})
     return{
         addr: address,
         redeemScript: redeem
