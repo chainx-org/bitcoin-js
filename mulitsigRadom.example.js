@@ -1,3 +1,8 @@
-let multisig = require('.').multisig
+const multisig = require('.').multisig
 
-console.log(multisig.multisigRandom(2, 2, "testnet"))
+let out = multisig.multisigRandom(2, 3, "testnet")
+console.log(out)
+
+console.log("redeem script: " + out.redeemScript.output.toString('hex'))
+
+

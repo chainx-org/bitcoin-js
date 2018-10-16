@@ -38,7 +38,7 @@ function multisigRandom(m,n,networkInput){
     let wifListToString = wifList.join()
     return{
         addr: address,
-        redeemScript: redeem.output.toString('hex'),
+        redeemScript: redeem,
         privateKeys: wifListToString
     }
 }
@@ -55,7 +55,7 @@ function multisig(pubKey1, pubKey2, pubKey3, networkInput){
     const {address} = bitcoin.payments.p2sh({redeem: redeem})
     return{
         addr: address,
-        redeemScript: redeem.output.toString('hex')
+        redeemScript: redeem
     }
 }
 
@@ -70,7 +70,7 @@ function signTransaction(tx, vin, keyPair, networkInput, redeemScript, hashType)
     let NETWORK = networkInput === "testnet" ? bitcoin.networks.testnet : bitcoin.networks.bitcoin
     let txb = TransactionBuilder.fromTransaction(tx, NETWORK)
     txb.sign(vin, keyPair, redeemScript, hashType)
-    const tx1 = txb.buildIncomplete()
+    let tx1 = txb.buildIncomplete()
     return tx1
 }
 
