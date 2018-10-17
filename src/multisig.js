@@ -66,6 +66,14 @@ function buildTransaction(input, output) {
     return tx
 }
 
+function buildTransaction2Output(input, output1, output2) {
+    const tx = new Transaction()
+    tx.addInput(input.txhash, input.vout)
+    tx.addOutput(output1.address, output1.value)
+    tx.addOutput(output2.address, output2.value)
+    return tx
+}
+
 function signTransaction(tx, vin, keyPair, networkInput, redeemScript, hashType) {
     let NETWORK = networkInput === "testnet" ? bitcoin.networks.testnet : bitcoin.networks.bitcoin
     let txb = TransactionBuilder.fromTransaction(tx, NETWORK)
@@ -88,6 +96,7 @@ module.exports = {
     multisig,
     generateKey,
     buildTransaction,
+    buildTransaction2Output,
     signTransaction,
     multiSignTransaction    
 }
