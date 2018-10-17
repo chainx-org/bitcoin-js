@@ -1,8 +1,9 @@
 const multisig = require('.').multisig
 const bitcoin = require("bitcoinjs-lib")
+const OPS = require('bitcoin-ops')
 
-let input = { txhash: Buffer.from("b46874ded949ed055f3c95e01ffd251cceb0fa8abc827c121ef77d63238b159a", 'hex').reverse(), vout: 0 }
-let output = { address: Buffer.from("76a914cfd6b18ff3c883d0fb26244a695e89279e673e5a88ac", 'hex'), value: 10000000 }
+let input = { txhash: Buffer.from("88f381241fec52c43f68bf29f66a340e2459b5b91d7582870e2c842e63169121", 'hex').reverse(), vout: 0 }
+let output = { address: bitcoin.script.compile([OPS.OP_RETURN].concat([Buffer.from("123434a", 'utf8')])), value: 0 }
 let tx = multisig.buildTransaction(input, output)
 console.log(tx)
 console.log(tx.toHex())
