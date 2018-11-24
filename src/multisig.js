@@ -52,8 +52,8 @@ function multisig(pubKey1, pubKey2, pubKey3, networkInput){
     ].map(function (hex) { return Buffer.from(hex, 'hex') })
 
     redeem = bitcoin.payments.p2ms({ pubkeys, m:2, network: NETWORK }) // 2 of 3
-    const {address} = bitcoin.payments.p2sh({redeem: redeem, network: NETWORK})
-    return{
+	const {address} = bitcoin.payments.p2sh({redeem: redeem, network: NETWORK})
+	return{
         addr: address,
         redeemScript: redeem
     }
@@ -74,10 +74,19 @@ function buildTransaction2Output(input, output1, output2) {
     return tx
 }
 
+function buildTransaction3Output(input, output1, output2, output3) {
+    const tx = new Transaction()
+    tx.addInput(input.txhash, input.vout)
+    tx.addOutput(output1.address, output1.value)
+    tx.addOutput(output2.address, output2.value)
+    tx.addOutput(output3.address, output3.value)
+    return tx
+}
+
 function signTransaction(tx, vin, keyPair, networkInput, redeemScript, hashType) {
     let NETWORK = networkInput === "testnet" ? bitcoin.networks.testnet : bitcoin.networks.bitcoin
     let txb = TransactionBuilder.fromTransaction(tx, NETWORK)
-    txb.sign(vin, keyPair, redeemScript, hashType)
+   txb.sign(vin, keyPair, redeemScript, hashType)
     let tx1 = txb.buildIncomplete()
     return tx1
 }
@@ -97,6 +106,7 @@ module.exports = {
     generateKey,
     buildTransaction,
     buildTransaction2Output,
+    buildTransaction3Output,
     signTransaction,
     multiSignTransaction    
 }

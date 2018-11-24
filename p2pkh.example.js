@@ -1,13 +1,14 @@
 const multisig = require('.').multisig
 const bitcoin = require("bitcoinjs-lib")
 
-let input = { txhash: Buffer.from("b46874ded949ed055f3c95e01ffd251cceb0fa8abc827c121ef77d63238b159a", 'hex').reverse(), vout: 0 }
-let output = { address: Buffer.from("76a914cfd6b18ff3c883d0fb26244a695e89279e673e5a88ac", 'hex'), value: 10000000 }
+let input = { txhash: Buffer.from("97eff152f057504f87fad6f63f9583851568b91afd501ac5b05a94d1bac9585b", 'hex').reverse(), vout: 1 }
+let output1 = { address: Buffer.from("a914780d4f6c31a403aafca6cd1031e16bae37d63aa787", 'hex'), value: 10000000 }
+let output2 = { address: Buffer.from("a914780d4f6c31a403aafca6cd1031e16bae37d63aa787", 'hex'), value: 10000000 }
 let tx = multisig.buildTransaction(input, output)
 console.log(tx)
 console.log(tx.toHex())
 
-let wif = "cQSam21Eb4vV6oc6dmpiQvrtcTLBZ2QmfLhhbhziRqDqH9oLViS5"
+let wif = "cR4w2k1TvRKefjB6nNxxFWcFUPtFSxNDs4vFuvvEHrhDGsAc4aDX"
 let keypair = bitcoin.ECPair.fromWIF(wif, bitcoin.networks.testnet)
 let tx2 = multisig.signTransaction(tx, 0, keypair, 'testnet')
 console.log(tx2)
